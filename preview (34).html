@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SSS Technologies</title>
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  overflow: hidden;
+  color: #10275d;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(42, 130, 255, 0.075),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f7faff 100%
+    );
+}
+
+
+/* =========================================================
+   PRESENTATION
+========================================================= */
+
+.presentation {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   SHARED SCREEN
+========================================================= */
+
+.screen {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 40px 24px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform:
+    translateY(15px)
+    scale(0.995);
+
+  transition:
+    opacity 1s ease,
+    transform 1s ease,
+    visibility 1s ease;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   AMBIENT GLOW
+========================================================= */
+
+.glow {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 520px;
+  height: 250px;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(34, 130, 255, 0.12),
+      transparent 64%
+    );
+
+  filter: blur(20px);
+
+  pointer-events: none;
+
+  animation:
+    breathe 4s
+    ease-in-out
+    infinite;
+}
+
+
+/* =========================================================
+   SCREEN 1
+   COMPANY LOGO
+========================================================= */
+
+.logo-stage {
+  position: relative;
+  z-index: 3;
+
+  width: min(92vw, 800px);
+
+  text-align: center;
+}
+
+
+/* LOGO ICON */
+
+.final-logo {
+  position: relative;
+
+  width: 180px;
+  height: 180px;
+
+  margin:
+    0 auto
+    36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 45px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      #071b3c 0%,
+      #12366f 53%,
+      #081a39 100%
+    );
+
+  box-shadow:
+    0 30px 75px
+    rgba(15, 37, 87, 0.24),
+    0 9px 25px
+    rgba(15, 37, 87, 0.12);
+
+  opacity: 0;
+
+  transform:
+    scale(0.8)
+    translateY(15px);
+
+  transition:
+    opacity 1s ease,
+    transform 1.15s
+    cubic-bezier(.2, .75, .25, 1);
+}
+
+.final-logo.show {
+  opacity: 1;
+
+  transform:
+    scale(1)
+    translateY(0);
+}
+
+
+/* LOGO LIGHT EFFECTS */
+
+.final-logo::before {
+  content: "";
+
+  position: absolute;
+
+  width: 150px;
+  height: 150px;
+
+  top: -60px;
+  right: -55px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(47, 131, 255, 0.36),
+      transparent 68%
+    );
+}
+
+.final-logo::after {
+  content: "";
+
+  position: absolute;
+
+  width: 150px;
+  height: 100px;
+
+  left: -65px;
+  bottom: -65px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(54, 169, 63, 0.20),
+      transparent 70%
+    );
+}
+
+
+/* LOGO LETTERS */
+
+.logo-letters {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  letter-spacing: -15px;
+
+  transform: translateX(-5px);
+}
+
+.logo-s {
+  display: inline-block;
+
+  font-size: 84px;
+
+  font-weight: 900;
+  font-style: italic;
+
+  line-height: 1;
+
+  transform: skewX(-6deg);
+
+  text-shadow:
+    0 8px 20px
+    rgba(0, 0, 0, 0.18);
+}
+
+.logo-s-one {
+  color: #ffffff;
+}
+
+.logo-s-two {
+  color: #2478ea;
+}
+
+.logo-s-three {
+  color: #38b54a;
+}
+
+
+/* LOGO COMPANY NAME */
+
+.final-name {
+  margin: 0;
+
+  font-size:
+    clamp(
+      2rem,
+      4vw,
+      3rem
+    );
+
+  font-weight: 600;
+
+  letter-spacing: 0.04em;
+
+  color: #10275d;
+
+  opacity: 0;
+
+  transform: translateY(10px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.final-name.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* LOGO DIVIDER */
+
+.final-divider {
+  width: 0;
+  height: 3px;
+
+  margin: 22px auto;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #10275d,
+      #2467d6,
+      #36a93f
+    );
+
+  opacity: 0;
+}
+
+.final-divider.show {
+  animation:
+    finalDivider 0.9s ease forwards;
+}
+
+
+/* LOGO MEANING */
+
+.final-message {
+  font-size: 13px;
+
+  letter-spacing: 0.13em;
+
+  text-transform: uppercase;
+
+  color: #7e90a7;
+
+  opacity: 0;
+
+  transform: translateY(8px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.final-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   SCREEN 2
+   COMPANY IDENTITY
+========================================================= */
+
+.brand-stage {
+  position: relative;
+  z-index: 3;
+
+  width: min(92vw, 1000px);
+
+  text-align: center;
+}
+
+
+.brand-line,
+.sub-line,
+.meaning-line {
+  white-space: nowrap;
+}
+
+
+/* LARGE SSS */
+
+.brand-line {
+  min-height: 1.05em;
+
+  font-size:
+    clamp(
+      4.5rem,
+      10vw,
+      8rem
+    );
+
+  font-weight: 800;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.055em;
+}
+
+
+.s-one {
+  color: #10275d;
+}
+
+.s-two {
+  color: #2467d6;
+}
+
+.s-three {
+  color: #36a93f;
+}
+
+
+/* TECHNOLOGIES */
+
+.sub-line {
+  min-height: 1.3em;
+
+  margin-top: 18px;
+
+  font-size:
+    clamp(
+      1.55rem,
+      3.4vw,
+      2.8rem
+    );
+
+  font-weight: 400;
+
+  letter-spacing: 0.09em;
+
+  color: #10275d;
+}
+
+
+/* TYPE CURSOR */
+
+.cursor {
+  display: inline-block;
+
+  width: 3px;
+  height: 0.9em;
+
+  margin-left: 5px;
+
+  vertical-align: -0.04em;
+
+  background: #2467d6;
+
+  animation:
+    blink 0.75s
+    steps(1)
+    infinite;
+}
+
+
+/* BRAND UNDERLINE */
+
+.underline {
+  width: 0;
+  height: 5px;
+
+  margin: 26px auto 0;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #10275d 0%,
+      #2467d6 50%,
+      #36a93f 100%
+    );
+
+  box-shadow:
+    0 0 18px
+    rgba(36, 103, 214, 0.25),
+    0 0 15px
+    rgba(54, 169, 63, 0.16);
+
+  opacity: 0;
+}
+
+.underline.show {
+  animation:
+    sweep 1s
+    cubic-bezier(.2, .75, .25, 1)
+    forwards;
+}
+
+
+/* SPARK */
+
+.spark {
+  width: 9px;
+  height: 9px;
+
+  margin: -7px auto 0;
+
+  border-radius: 50%;
+
+  background: #36a93f;
+
+  opacity: 0;
+
+  box-shadow:
+    0 0 22px
+    rgba(54, 169, 63, 0.75);
+}
+
+.spark.show {
+  animation:
+    spark 0.7s
+    ease-out
+    forwards;
+}
+
+
+/* BRAND MEANING */
+
+.meaning-line {
+  min-height: 1.5em;
+
+  margin-top: 29px;
+
+  font-size:
+    clamp(
+      0.82rem,
+      1.7vw,
+      1.03rem
+    );
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  opacity: 0;
+
+  transform: translateY(8px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.meaning-line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.spatial {
+  color: #10275d;
+}
+
+.software {
+  color: #2467d6;
+}
+
+.systems {
+  color: #36a93f;
+}
+
+.meaning-dot {
+  display: inline-block;
+
+  margin: 0 13px;
+
+  color: #a5b0bf;
+}
+
+
+/* TAGLINE */
+
+.tagline {
+  margin-top: 30px;
+
+  font-size: 13px;
+
+  letter-spacing: 0.035em;
+
+  color: #8495aa;
+
+  opacity: 0;
+
+  transform: translateY(8px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.tagline.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   SCREEN 3
+   VISION & MISSION
+========================================================= */
+
+.purpose-wrap {
+  position: relative;
+  z-index: 3;
+
+  width: min(92vw, 1040px);
+}
+
+
+.purpose-brand {
+  margin-bottom: 13px;
+
+  text-align: center;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+
+  color: #2467d6;
+
+  opacity: 0;
+
+  transform: translateY(8px);
+
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.purpose-brand.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* HEADING */
+
+.purpose-title {
+  margin:
+    0
+    0
+    46px;
+
+  text-align: center;
+
+  font-size:
+    clamp(
+      2.4rem,
+      5vw,
+      4.2rem
+    );
+
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: -0.045em;
+
+  color: #10275d;
+
+  opacity: 0;
+
+  transform: translateY(12px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.purpose-title span {
+  color: #36a93f;
+}
+
+.purpose-title.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* VISION + MISSION GRID */
+
+.purpose-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 25px;
+}
+
+
+/* CARDS */
+
+.purpose-card {
+  position: relative;
+
+  min-height: 250px;
+
+  padding:
+    40px
+    38px
+    37px;
+
+  border:
+    1px solid
+    rgba(16, 39, 93, 0.08);
+
+  border-radius: 20px;
+
+  background:
+    rgba(255, 255, 255, 0.82);
+
+  box-shadow:
+    0 20px 55px
+    rgba(15, 37, 87, 0.075);
+
+  backdrop-filter:
+    blur(12px);
+
+  opacity: 0;
+
+  transform: translateY(22px);
+
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease,
+    box-shadow 0.3s ease;
+}
+
+.purpose-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.purpose-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 25px 65px
+    rgba(15, 37, 87, 0.11);
+}
+
+
+/* CARD ACCENTS */
+
+.purpose-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 38px;
+
+  width: 65px;
+  height: 4px;
+
+  border-radius:
+    0 0 8px 8px;
+
+  background: #2467d6;
+}
+
+.purpose-card.mission::before {
+  background: #36a93f;
+}
+
+
+/* CARD TITLES */
+
+.purpose-card h2 {
+  margin:
+    0
+    0
+    20px;
+
+  font-size: 27px;
+
+  font-weight: 700;
+
+  color: #10275d;
+}
+
+.purpose-card.mission h2 {
+  color: #2467d6;
+}
+
+
+/* CARD TEXT */
+
+.purpose-card p {
+  margin: 0;
+
+  font-size: 15px;
+
+  line-height: 1.85;
+
+  color: #60728b;
+}
+
+
+/* PURPOSE FOOTER */
+
+.purpose-footer {
+  margin-top: 34px;
+
+  text-align: center;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 0.1em;
+
+  color: #91a0b4;
+
+  opacity: 0;
+
+  transform: translateY(5px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.purpose-footer.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   SCREEN INDICATORS
+========================================================= */
+
+.slide-indicators {
+  position: fixed;
+
+  left: 50%;
+  bottom: 28px;
+
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  transform:
+    translateX(-50%);
+}
+
+
+.indicator {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 999px;
+
+  background: #ccd5e1;
+
+  transition:
+    width 0.4s ease,
+    background 0.4s ease;
+}
+
+
+.indicator.active {
+  width: 28px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #2467d6,
+      #36a93f
+    );
+}
+
+
+/* =========================================================
+   KEYFRAMES
+========================================================= */
+
+@keyframes blink {
+
+  0%,
+  48% {
+    opacity: 1;
+  }
+
+  49%,
+  100% {
+    opacity: 0;
+  }
+}
+
+
+@keyframes sweep {
+
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    width:
+      min(
+        78vw,
+        520px
+      );
+
+    opacity: 1;
+  }
+}
+
+
+@keyframes spark {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(0.3);
+  }
+
+  45% {
+    opacity: 1;
+
+    transform:
+      scale(1.4);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      scale(2.1);
+  }
+}
+
+
+@keyframes breathe {
+
+  0%,
+  100% {
+    opacity: 0.55;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1.08);
+  }
+}
+
+
+@keyframes finalDivider {
+
+  from {
+    width: 0;
+    opacity: 0;
+  }
+
+  to {
+    width: 170px;
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .screen {
+    padding:
+      35px
+      18px
+      65px;
+  }
+
+
+  .final-logo {
+    width: 135px;
+    height: 135px;
+
+    border-radius: 34px;
+
+    margin-bottom: 30px;
+  }
+
+
+  .logo-s {
+    font-size: 62px;
+  }
+
+
+  .logo-letters {
+    letter-spacing: -12px;
+  }
+
+
+  .final-name {
+    font-size: 2rem;
+  }
+
+
+  .brand-line {
+    font-size: 4.6rem;
+  }
+
+
+  .sub-line {
+    font-size: 1.45rem;
+
+    letter-spacing: 0.05em;
+  }
+
+
+  .meaning-line {
+    font-size: 0.67rem;
+
+    letter-spacing: 0.045em;
+  }
+
+
+  .meaning-dot {
+    margin:
+      0 5px;
+  }
+
+
+  .purpose-title {
+    margin-bottom: 27px;
+
+    font-size: 2.3rem;
+  }
+
+
+  .purpose-grid {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+  }
+
+
+  .purpose-card {
+    min-height: auto;
+
+    padding:
+      27px
+      25px;
+  }
+
+
+  .purpose-card::before {
+    left: 25px;
+  }
+
+
+  .purpose-card h2 {
+    margin-bottom: 12px;
+
+    font-size: 22px;
+  }
+
+
+  .purpose-card p {
+    font-size: 13px;
+
+    line-height: 1.65;
+  }
+
+
+  .purpose-footer {
+    margin-top: 20px;
+
+    font-size: 10px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      0.01ms !important;
+  }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="presentation">
+
+
+  <!-- =====================================================
+       SCREEN 1
+       COMPANY LOGO
+  ====================================================== -->
+
+  <section
+    class="screen active"
+    id="logoScreen"
+  >
+
+    <div class="glow"></div>
+
+
+    <div class="logo-stage">
+
+
+      <div
+        class="final-logo"
+        id="finalLogo"
+      >
+
+        <div class="logo-letters">
+
+          <span class="logo-s logo-s-one">
+            S
+          </span>
+
+          <span class="logo-s logo-s-two">
+            S
+          </span>
+
+          <span class="logo-s logo-s-three">
+            S
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <h1
+        class="final-name"
+        id="finalName"
+      >
+        SSS Technologies
+      </h1>
+
+
+      <div
+        class="final-divider"
+        id="finalDivider"
+      ></div>
+
+
+      <div
+        class="final-message"
+        id="finalMessage"
+      >
+        Spatial • Software • Systems
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       SCREEN 2
+       COMPANY IDENTITY
+  ====================================================== -->
+
+  <section
+    class="screen"
+    id="brandScreen"
+  >
+
+    <div class="glow"></div>
+
+
+    <main class="brand-stage">
+
+
+      <div
+        class="brand-line"
+        id="brandLine"
+      ></div>
+
+
+      <div
+        class="sub-line"
+        id="subLine"
+      ></div>
+
+
+      <div
+        class="underline"
+        id="underline"
+      ></div>
+
+
+      <div
+        class="spark"
+        id="spark"
+      ></div>
+
+
+      <div
+        class="meaning-line"
+        id="meaningLine"
+      >
+
+        <span class="spatial">
+          Spatial
+        </span>
+
+        <span class="meaning-dot">
+          •
+        </span>
+
+        <span class="software">
+          Software
+        </span>
+
+        <span class="meaning-dot">
+          •
+        </span>
+
+        <span class="systems">
+          Systems
+        </span>
+
+      </div>
+
+
+      <div
+        class="tagline"
+        id="tagline"
+      >
+        Building intelligent digital solutions.
+      </div>
+
+
+    </main>
+
+  </section>
+
+
+  <!-- =====================================================
+       SCREEN 3
+       VISION & MISSION
+  ====================================================== -->
+
+  <section
+    class="screen"
+    id="purposeScreen"
+  >
+
+    <div class="glow"></div>
+
+
+    <div class="purpose-wrap">
+
+
+      <div
+        class="purpose-brand"
+        id="purposeBrand"
+      >
+        SSS Technologies
+      </div>
+
+
+      <h1
+        class="purpose-title"
+        id="purposeTitle"
+      >
+        Our Vision
+        <span>&</span>
+        Mission
+      </h1>
+
+
+      <div class="purpose-grid">
+
+
+        <!-- VISION -->
+
+        <article
+          class="purpose-card vision"
+          id="visionCard"
+        >
+
+          <h2>
+            Vision
+          </h2>
+
+          <p>
+            To be a trusted technology partner delivering
+            intelligent, practical and scalable digital solutions
+            that improve how organisations work, connect,
+            operate and make informed decisions.
+          </p>
+
+        </article>
+
+
+        <!-- MISSION -->
+
+        <article
+          class="purpose-card mission"
+          id="missionCard"
+        >
+
+          <h2>
+            Mission
+          </h2>
+
+          <p>
+            SSS Technologies brings together spatial intelligence,
+            software development and integrated digital systems
+            to create practical, reliable and future-ready
+            technology solutions that strengthen operations,
+            improve efficiency and support digital transformation.
+          </p>
+
+        </article>
+
+
+      </div>
+
+
+      <div
+        class="purpose-footer"
+        id="purposeFooter"
+      >
+        Spatial • Software • Systems
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+</div>
+
+
+<!-- =====================================================
+     INDICATORS
+====================================================== -->
+
+<div class="slide-indicators">
+
+  <span
+    class="indicator active"
+    id="indicatorOne"
+  ></span>
+
+  <span
+    class="indicator"
+    id="indicatorTwo"
+  ></span>
+
+  <span
+    class="indicator"
+    id="indicatorThree"
+  ></span>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const logoScreen =
+  document.getElementById("logoScreen");
+
+const brandScreen =
+  document.getElementById("brandScreen");
+
+const purposeScreen =
+  document.getElementById("purposeScreen");
+
+
+const finalLogo =
+  document.getElementById("finalLogo");
+
+const finalName =
+  document.getElementById("finalName");
+
+const finalDivider =
+  document.getElementById("finalDivider");
+
+const finalMessage =
+  document.getElementById("finalMessage");
+
+
+const brandLine =
+  document.getElementById("brandLine");
+
+const subLine =
+  document.getElementById("subLine");
+
+const underline =
+  document.getElementById("underline");
+
+const spark =
+  document.getElementById("spark");
+
+const meaningLine =
+  document.getElementById("meaningLine");
+
+const tagline =
+  document.getElementById("tagline");
+
+
+const purposeBrand =
+  document.getElementById("purposeBrand");
+
+const purposeTitle =
+  document.getElementById("purposeTitle");
+
+const visionCard =
+  document.getElementById("visionCard");
+
+const missionCard =
+  document.getElementById("missionCard");
+
+const purposeFooter =
+  document.getElementById("purposeFooter");
+
+
+const indicatorOne =
+  document.getElementById("indicatorOne");
+
+const indicatorTwo =
+  document.getElementById("indicatorTwo");
+
+const indicatorThree =
+  document.getElementById("indicatorThree");
+
+
+/* =========================================================
+   COMPANY NAME DATA
+========================================================= */
+
+const brandChars = [
+
+  {
+    ch: "S",
+    cls: "s-one"
+  },
+
+  {
+    ch: "S",
+    cls: "s-two"
+  },
+
+  {
+    ch: "S",
+    cls: "s-three"
+  }
+
+];
+
+const subText =
+  "Technologies";
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+const sleep = (ms) =>
+  new Promise(
+    resolve =>
+      setTimeout(resolve, ms)
+  );
+
+
+function cursorEl() {
+
+  const cursor =
+    document.createElement("span");
+
+  cursor.className =
+    "cursor";
+
+  return cursor;
+}
+
+
+/* =========================================================
+   LOGO SCREEN ANIMATION
+========================================================= */
+
+function resetLogo() {
+
+  finalLogo.classList.remove(
+    "show"
+  );
+
+  finalName.classList.remove(
+    "show"
+  );
+
+  finalDivider.classList.remove(
+    "show"
+  );
+
+  finalMessage.classList.remove(
+    "show"
+  );
+}
+
+
+async function animateLogo() {
+
+  resetLogo();
+
+  await sleep(400);
+
+  finalLogo.classList.add(
+    "show"
+  );
+
+  await sleep(700);
+
+  finalName.classList.add(
+    "show"
+  );
+
+  await sleep(400);
+
+  finalDivider.classList.add(
+    "show"
+  );
+
+  await sleep(450);
+
+  finalMessage.classList.add(
+    "show"
+  );
+}
+
+
+/* =========================================================
+   TYPE SSS
+========================================================= */
+
+async function typeBrand() {
+
+  brandLine.innerHTML = "";
+
+  const cursor =
+    cursorEl();
+
+  brandLine.appendChild(
+    cursor
+  );
+
+
+  for (const item of brandChars) {
+
+    const span =
+      document.createElement("span");
+
+    span.className =
+      item.cls;
+
+    span.textContent =
+      item.ch;
+
+    brandLine.insertBefore(
+      span,
+      cursor
+    );
+
+    await sleep(220);
+  }
+
+
+  await sleep(400);
+
+  cursor.remove();
+}
+
+
+/* =========================================================
+   TYPE TECHNOLOGIES
+========================================================= */
+
+async function typeSubtitle() {
+
+  subLine.innerHTML = "";
+
+  const cursor =
+    cursorEl();
+
+  subLine.appendChild(
+    cursor
+  );
+
+
+  for (const ch of subText) {
+
+    const span =
+      document.createElement("span");
+
+    span.textContent =
+      ch;
+
+    subLine.insertBefore(
+      span,
+      cursor
+    );
+
+    await sleep(70);
+  }
+
+
+  await sleep(450);
+
+  cursor.remove();
+}
+
+
+/* =========================================================
+   BRAND SCREEN
+========================================================= */
+
+function resetBrand() {
+
+  brandLine.innerHTML = "";
+
+  subLine.innerHTML = "";
+
+  underline.classList.remove(
+    "show"
+  );
+
+  spark.classList.remove(
+    "show"
+  );
+
+  meaningLine.classList.remove(
+    "show"
+  );
+
+  tagline.classList.remove(
+    "show"
+  );
+}
+
+
+async function animateBrand() {
+
+  resetBrand();
+
+  await sleep(350);
+
+  await typeBrand();
+
+  await sleep(160);
+
+  await typeSubtitle();
+
+  await sleep(220);
+
+  underline.classList.add(
+    "show"
+  );
+
+  await sleep(700);
+
+  spark.classList.add(
+    "show"
+  );
+
+  await sleep(400);
+
+  meaningLine.classList.add(
+    "show"
+  );
+
+  await sleep(500);
+
+  tagline.classList.add(
+    "show"
+  );
+}
+
+
+/* =========================================================
+   VISION & MISSION
+========================================================= */
+
+function resetPurpose() {
+
+  purposeBrand.classList.remove(
+    "show"
+  );
+
+  purposeTitle.classList.remove(
+    "show"
+  );
+
+  visionCard.classList.remove(
+    "show"
+  );
+
+  missionCard.classList.remove(
+    "show"
+  );
+
+  purposeFooter.classList.remove(
+    "show"
+  );
+}
+
+
+async function animatePurpose() {
+
+  resetPurpose();
+
+  await sleep(300);
+
+  purposeBrand.classList.add(
+    "show"
+  );
+
+  await sleep(250);
+
+  purposeTitle.classList.add(
+    "show"
+  );
+
+  await sleep(350);
+
+  visionCard.classList.add(
+    "show"
+  );
+
+  await sleep(250);
+
+  missionCard.classList.add(
+    "show"
+  );
+
+  await sleep(350);
+
+  purposeFooter.classList.add(
+    "show"
+  );
+}
+
+
+/* =========================================================
+   SCREEN CONTROL
+========================================================= */
+
+function showScreen(screen) {
+
+  logoScreen.classList.remove(
+    "active"
+  );
+
+  brandScreen.classList.remove(
+    "active"
+  );
+
+  purposeScreen.classList.remove(
+    "active"
+  );
+
+  screen.classList.add(
+    "active"
+  );
+}
+
+
+/* =========================================================
+   INDICATORS
+========================================================= */
+
+function setIndicator(number) {
+
+  indicatorOne.classList.remove(
+    "active"
+  );
+
+  indicatorTwo.classList.remove(
+    "active"
+  );
+
+  indicatorThree.classList.remove(
+    "active"
+  );
+
+
+  if (number === 1) {
+    indicatorOne.classList.add(
+      "active"
+    );
+  }
+
+
+  if (number === 2) {
+    indicatorTwo.classList.add(
+      "active"
+    );
+  }
+
+
+  if (number === 3) {
+    indicatorThree.classList.add(
+      "active"
+    );
+  }
+}
+
+
+/* =========================================================
+   CONTINUOUS LOOP
+========================================================= */
+
+async function presentationLoop() {
+
+  while (true) {
+
+
+    /* =====================================
+       SCREEN 1 — LOGO
+    ===================================== */
+
+    showScreen(
+      logoScreen
+    );
+
+    setIndicator(1);
+
+    await animateLogo();
+
+    await sleep(
+      6000
+    );
+
+
+    /* =====================================
+       SCREEN 2 — COMPANY IDENTITY
+    ===================================== */
+
+    showScreen(
+      brandScreen
+    );
+
+    setIndicator(2);
+
+    await animateBrand();
+
+    await sleep(
+      6000
+    );
+
+
+    /* =====================================
+       SCREEN 3 — VISION & MISSION
+    ===================================== */
+
+    showScreen(
+      purposeScreen
+    );
+
+    setIndicator(3);
+
+    await animatePurpose();
+
+    await sleep(
+      9000
+    );
+
+  }
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+presentationLoop();
+
+</script>
+
+</body>
+</html>
